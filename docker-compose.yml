@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+    golang:
+        build: .
+        ports:
+            - "8080:8080"
+        # container_name: app
+        depends_on:
+            - mysql
+        tty: true
+        volumes: 
+            - .:/go/src/gotrading
+            
+    # mysql のサービスを追加
+    mysql:
+        image: mysql:8.0.22
+        environment:
+            MYSQL_ROOT_PASSWORD: golang
+            MYSQL_USER: golang # 使わないけど一応記述
+            MYSQL_PASSWORD: golang # 使わないけど一応記述
+            MYSQL_DATABASE: golang # 使わないけど一応記述
+        container_name: mysql-container
